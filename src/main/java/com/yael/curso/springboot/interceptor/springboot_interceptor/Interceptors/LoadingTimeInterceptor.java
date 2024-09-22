@@ -1,8 +1,5 @@
 package com.yael.curso.springboot.interceptor.springboot_interceptor.Interceptors;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import org.slf4j.Logger;
@@ -11,8 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.micrometer.common.lang.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,21 +36,24 @@ public class LoadingTimeInterceptor implements HandlerInterceptor {
         int delay = random.nextInt(500);
         Thread.sleep(delay);
 
-        Map<String, Object> json = new HashMap<>();
-        json.put("error", "No tienes acceso a esta api");
-        json.put("date", new Date().toString());
+        //* Validaciones y modificar la respuesta HTTP para la REST API
+        // // Crear mapper
+        // Map<String, Object> json = new HashMap<>();
+        // json.put("error", "No tienes acceso a esta api");
+        // json.put("date", new Date().toString());
 
-        // ToJson
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(json);
+        // // ToJson
+        // ObjectMapper mapper = new ObjectMapper();
+        // String jsonString = mapper.writeValueAsString(json);
 
-        // Enviar el json
-        response.setContentType("application/json");
-        response.setStatus(401);
-        response.getWriter().write(jsonString);
+        // // Enviar el json
+        // response.setContentType("application/json");
+        // response.setStatus(401);
+        // response.getWriter().write(jsonString);
 
-        return false; // no continua la ejecucion del Api, no retorna nada.
-        // return true // continua la REST API;
+        // return false; // no continua la ejecucion del Api, no retorna nada.
+
+        return true; // continua la REST API
     }
 
     @Override
